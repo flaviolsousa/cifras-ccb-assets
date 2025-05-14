@@ -123,10 +123,7 @@
               <div class="collapse" id="collapseMidi">
                 <div class="card-body">
                   <div class="row midi-list">
-                    <div class="col-md-12">
-                      <midi-visualizer type="piano-roll" id="midi-visualizer">
-                      </midi-visualizer>
-                    </div>
+                    <div class="col-md-12"></div>
                   </div>
                 </div>
               </div>
@@ -166,6 +163,52 @@
       <p class="mb-0">&copy; 2025 Violao-CCB-Assets</p>
     </footer>
     <script>
+      function loadMidi(code) {
+        console.log("Loading MIDI file:", code);
+        $(`#a-midi-${code}`).replaceWith(`
+          <br/>
+          <span>
+            0-Completo: 
+            <midi-player
+              src="midi/${code}-0.mid"
+              sound-font
+              visualizer="#midi-visualizer-${code}"
+            ></midi-player>
+            
+            1-Soprano: 
+            <midi-player
+              src="midi/${code}-1.mid"
+              sound-font
+              visualizer="#midi-visualizer-${code}"
+            ></midi-player></span>
+            
+            2-Contralto: 
+            <midi-player
+              src="midi/${code}-2.mid"
+              sound-font
+              visualizer="#midi-visualizer-${code}"
+            ></midi-player></span>
+            
+            3-Tenor: 
+            <midi-player
+              src="midi/${code}-3.mid"
+              sound-font
+              visualizer="#midi-visualizer-${code}"
+            ></midi-player></span>
+            
+            4-Baixo: 
+            <midi-player
+              src="midi/${code}-4.mid"
+              sound-font
+              visualizer="#midi-visualizer-${code}"
+            ></midi-player>
+          </span>`);
+        setTimeout(function () {
+          const el = document.getElementById(`midi-visualizer-${code}`);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
+      }
+
       // Rotaciona o ícone da seta ao expandir/fechar o collapse
       document.querySelectorAll(".collapse").forEach(function (collapseEl) {
         collapseEl.addEventListener("show.bs.collapse", function () {
@@ -182,16 +225,15 @@
 
       $("document").ready(function () {
         for (let i = 1; i <= 480; i++) {
+          const code = i.toString().padStart(3, "0");
           $(`.mp3-list`).append(
             `
             <div class="col-md-4">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex align-items-center justify-content-between">
-                  <span>${i.toString().padStart(3, "0")}</span>
+                  <span>${code}</span>
                   <audio controls class="mp3-player">
-                    <source src="mp3/${i
-                      .toString()
-                      .padStart(3, "0")}.mp3" type="audio/mpeg" />
+                    <source src="mp3/${code}.mp3" type="audio/mpeg" />
                   </audio>
                 </li>
               </ul>
@@ -200,21 +242,18 @@
 
           $(`.midi-list`).append(
             `
-            <div class="col-md-4">
-                      <ul class="list-group list-group-flush">
-                        <li
-                          class="list-group-item d-flex align-items-center justify-content-between"
-                        >
-                          <span>${i.toString().padStart(3, "0")}</span>
-                          <midi-player
-                            src="midi/${i.toString().padStart(3, "0")}-0.mid"
-                            sound-font
-                            visualizer="#midi-visualizer"
-                          >
-                          </midi-player>
-                        </li>
-                      </ul>
-                    </div>`
+            <div class="col-md-12">
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item d-flex align-items-center justify-content-between"
+                >
+                  <span>${code} 
+                  <a id="a-midi-${code}" href="#" onclick="loadMidi('${code}')">Click para carregar</a></span>
+                  <br/>
+                  <midi-visualizer type="piano-roll" id="midi-visualizer-${code}"></midi-visualizer>
+                </li>
+              </ul>
+            </div>`
           );
         }
 
