@@ -54,6 +54,15 @@
       main {
         flex: 1 0 auto;
       }
+      midi-player {
+        margin-left: 32px;
+        display: block;
+      }
+      midi-visualizer {
+        min-width: 600px;
+        margin-left: 32px;
+        display: block;
+      }
     </style>
     <header class="bg-primary text-white py-4 mb-4">
       <div class="container text-center">
@@ -113,10 +122,12 @@
               </div>
               <div class="collapse" id="collapseMidi">
                 <div class="card-body">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">001</li>
-                    <li class="list-group-item">002</li>
-                  </ul>
+                  <div class="row midi-list">
+                    <div class="col-md-12">
+                      <midi-visualizer type="piano-roll" id="midi-visualizer">
+                      </midi-visualizer>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -143,20 +154,7 @@
               </div>
               <div class="collapse" id="collapseMp3">
                 <div class="card-body">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                      001
-                      <audio controls autoplay>
-                        <source src="mp3/001.mp3" type="audio/mpeg" />
-                      </audio>
-                    </li>
-                    <li class="list-group-item">
-                      002
-                      <audio controls autoplay>
-                        <source src="mp3/002.mp3" type="audio/mpeg" />
-                      </audio>
-                    </li>
-                  </ul>
+                  <div class="row mp3-list"></div>
                 </div>
               </div>
             </div>
@@ -179,6 +177,53 @@
           var icon =
             collapseEl.previousElementSibling.querySelector(".collapse-icon");
           if (icon) icon.classList.remove("rotate-180");
+        });
+      });
+
+      $("document").ready(function () {
+        for (let i = 1; i <= 480; i++) {
+          $(`.mp3-list`).append(
+            `
+            <div class="col-md-4">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <span>${i.toString().padStart(3, "0")}</span>
+                  <audio controls class="mp3-player">
+                    <source src="mp3/${i
+                      .toString()
+                      .padStart(3, "0")}.mp3" type="audio/mpeg" />
+                  </audio>
+                </li>
+              </ul>
+            </div>`
+          );
+
+          $(`.midi-list`).append(
+            `
+            <div class="col-md-4">
+                      <ul class="list-group list-group-flush">
+                        <li
+                          class="list-group-item d-flex align-items-center justify-content-between"
+                        >
+                          <span>${i.toString().padStart(3, "0")}</span>
+                          <midi-player
+                            src="midi/${i.toString().padStart(3, "0")}-0.mid"
+                            sound-font
+                            visualizer="#midi-visualizer"
+                          >
+                          </midi-player>
+                        </li>
+                      </ul>
+                    </div>`
+          );
+        }
+
+        document.querySelectorAll(".mp3-player").forEach(function (player) {
+          player.addEventListener("play", function () {
+            document.querySelectorAll(".mp3-player").forEach(function (other) {
+              if (other !== player) other.pause();
+            });
+          });
         });
       });
     </script>
