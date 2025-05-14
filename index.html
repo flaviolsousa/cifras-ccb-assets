@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Violao-CCB-Assets</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <style>
+      /* Sobrescreve as classes Bootstrap para cor primária customizada */
+      .bg-primary {
+        background-color: #2e3849 !important;
+      }
+      .text-primary {
+        color: #2e3849 !important;
+      }
+      .btn-primary {
+        background-color: #2e3849 !important;
+        border-color: #2e3849 !important;
+      }
+      .link-primary {
+        color: #2e3849 !important;
+      }
+      .card-title {
+        color: #2e3849 !important;
+      }
+      /* Rotaciona a seta para cima quando aberto */
+      .rotate-180 {
+        transform: rotate(180deg);
+        transition: transform 0.2s;
+      }
+      .collapse-icon {
+        transition: transform 0.2s;
+      }
+      main {
+        flex: 1 0 auto;
+      }
+    </style>
+    <header class="bg-primary text-white py-4 mb-4">
+      <div class="container text-center">
+        <h1 class="display-5 fw-bold">Welcome to Violao-CCB-Assets</h1>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <!-- About Me -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h2 class="card-title h5">About Me</h2>
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a
+                      href="https://github.com/flaviolsousa/"
+                      target="_blank"
+                      class="link-primary text-decoration-none"
+                    >
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/in/flavio-sousa-62782b13/"
+                      target="_blank"
+                      class="link-primary text-decoration-none"
+                    >
+                      LinkedIn
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MIDI Collapse -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-header">
+                <button
+                  class="btn btn-link text-decoration-none d-flex align-items-center"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseMidi"
+                  aria-expanded="false"
+                  aria-controls="collapseMidi"
+                >
+                  <span class="me-2">
+                    <i class="bi bi-chevron-down collapse-icon"></i>
+                  </span>
+                  <h2 class="card-title h5 mb-0">midi</h2>
+                </button>
+              </div>
+              <div class="collapse" id="collapseMidi">
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">001</li>
+                    <li class="list-group-item">002</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MP3 Collapse -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-header">
+                <button
+                  class="btn btn-link text-decoration-none d-flex align-items-center"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseMp3"
+                  aria-expanded="false"
+                  aria-controls="collapseMp3"
+                >
+                  <span class="me-2">
+                    <i class="bi bi-chevron-down collapse-icon"></i>
+                  </span>
+                  <h2 class="card-title h5 mb-0">mp3</h2>
+                </button>
+              </div>
+              <div class="collapse" id="collapseMp3">
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      001
+                      <audio controls autoplay>
+                        <source src="mp3/001.mp3" type="audio/mpeg" />
+                      </audio>
+                    </li>
+                    <li class="list-group-item">
+                      002
+                      <audio controls autoplay>
+                        <source src="mp3/002.mp3" type="audio/mpeg" />
+                      </audio>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="bg-primary text-white text-center py-3 mt-5">
+      <p class="mb-0">&copy; 2025 Violao-CCB-Assets</p>
+    </footer>
+    <script>
+      // Rotaciona o ícone da seta ao expandir/fechar o collapse
+      document.querySelectorAll(".collapse").forEach(function (collapseEl) {
+        collapseEl.addEventListener("show.bs.collapse", function () {
+          var icon =
+            collapseEl.previousElementSibling.querySelector(".collapse-icon");
+          if (icon) icon.classList.add("rotate-180");
+        });
+        collapseEl.addEventListener("hide.bs.collapse", function () {
+          var icon =
+            collapseEl.previousElementSibling.querySelector(".collapse-icon");
+          if (icon) icon.classList.remove("rotate-180");
+        });
+      });
+    </script>
+  </body>
+</html>
