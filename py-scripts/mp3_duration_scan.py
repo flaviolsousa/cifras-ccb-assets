@@ -2,7 +2,7 @@
 
 """
 Usage:
-    python mp3_duration_scan.py "C:\\T\\git\\violao-ccb-assets\\mp3" output-duration.json
+    python3 mp3_duration_scan.py "../mp3" output-duration.json
 """
 
 import json
@@ -14,8 +14,8 @@ from pydub import AudioSegment, silence
 from tqdm import tqdm
 
 # Parâmetros de detecção
-INTRO_MIN_MS      = 4_000     # início da janela onde buscamos silêncio
-INTRO_MAX_MS      = 12_000    # fim da janela
+INTRO_MIN_MS      = 5_000     # início da janela onde buscamos silêncio
+INTRO_MAX_MS      = 25_000    # fim da janela
 MIN_SILENCE_LEN   = 1_000     # ≥ 1 s
 SILENCE_THRESH_DB = 16        # consideramos silêncio se volume ≤ (dBFS - 16)
 
@@ -42,15 +42,18 @@ def analyze_file(path: Path) -> dict:
     print(f"[INFO] {path.name} - {audio.channels} channels, {audio.frame_rate} Hz")
     total_duration = round(audio.duration_seconds, 3)
     intro_dur = intro_duration(audio)
-    return {
+    item = {
         "filename": path.name,
         "duration_sec": total_duration,
         "intro_duration_sec": intro_dur,
     }
+    print(f"[INFO] {item}")
+    return item
 
 def main(folder: str, out_json: str):
     mp3_files = sorted(Path(folder).glob("*.mp3"))
     results = []
+    print(f"[INFO] Found {len(mp3_files)} MP3 files in {folder}")
     for mp3 in tqdm(mp3_files, desc="Processing MP3"):
         try:
             results.append(analyze_file(mp3))
