@@ -2,7 +2,7 @@
 
 """
 Usage:
-    python3 mp3_duration_scan.py "../mp3" output-duration.json
+    python3 mp3_duration_scan.py "../mp3" mp3_duration_scan_output.json
 """
 
 import json
@@ -57,11 +57,13 @@ def main(folder: str, out_json: str):
     for mp3 in tqdm(mp3_files, desc="Processing MP3"):
         try:
             results.append(analyze_file(mp3))
+            with open(out_json, "w", encoding="utf-8") as f:
+                json.dump(results, f, indent=2, ensure_ascii=False)
         except Exception as e:
             print(f"[WARN] Fail to process {mp3.name}: {e}")
 
-    with open(out_json, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
+    # with open(out_json, "w", encoding="utf-8") as f:
+    #     json.dump(results, f, indent=2, ensure_ascii=False)
     print(f"\nReady! {len(results)} processed files. Output: {out_json}")
 
 if __name__ == "__main__":
