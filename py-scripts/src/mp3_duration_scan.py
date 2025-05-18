@@ -2,7 +2,7 @@
 
 """
 Usage:
-    python3 mp3_duration_scan.py "../mp3" mp3_duration_scan_output.json
+    python3 src/mp3_duration_scan.py "../mp3" "gen/mp3_duration_scan_output.json"   
 """
 
 import json
