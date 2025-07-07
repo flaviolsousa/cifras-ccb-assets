@@ -2,7 +2,7 @@ import json
 import os
 
 mp3_json_path = os.path.join(os.path.dirname(__file__), '../gen/mp3_duration_scan_output.json')
-hymns_json_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../violao-ccb/data/Hymns.json'))
+hymns_json_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../cifras-ccb/data/Hymns.json'))
 
 with open(mp3_json_path, 'r', encoding='utf-8') as f:
     mp3_data = json.load(f)
